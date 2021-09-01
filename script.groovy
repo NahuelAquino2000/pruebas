@@ -11,6 +11,7 @@ def otropaso() {
     def otropasovar = 'random1'
     
     echo "${otropasovar}"
+    echo "${jobsid}"
 
 }
 

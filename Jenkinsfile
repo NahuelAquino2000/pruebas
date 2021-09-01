@@ -32,7 +32,6 @@ pipeline{
                 echo jobsid
                 }
             }
-        }
     post {
         always{
             echo 'post condition always'

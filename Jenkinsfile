@@ -14,7 +14,7 @@ pipeline{
     }
 
     stages {
-        
+
         stage ("Primero"){
             when { //¿¿esto solo funciona con las variables que te da JENKINS??
                 expression {
@@ -28,7 +28,7 @@ pipeline{
                 //if job_id doesn't matches jobs_ids_list then do JOBS_ID_EXIST = false y terminar ticket
                 echo "primero prueba"
                 JOB_HAS_PREREQ = false
-                echo "${JOB_HAS_PREREQ} is true?"
+                // echo "${JOB_HAS_PREREQ} is true?"
                 }
                 }
 
@@ -43,6 +43,7 @@ pipeline{
                 //sería algo como 
                 //if job_id matches jobs_ids_list then do nothing
                 //if job_id doesn't matches jobs_ids_list then do JOBS_ID_EXIST = false y terminar ticket
+                echo "funcionó la wea"
                 }
                 }
 

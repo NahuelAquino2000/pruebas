@@ -23,8 +23,9 @@ pipeline{
         stage ("Probando Groovy Scripts"){
 
             steps{
-                gv.function()
-        
+                script{
+                    gv.function()
+                }
             }
         }
 }

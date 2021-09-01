@@ -13,7 +13,8 @@ pipeline{
         
     }
 
-
+    stages {
+        
         stage ("Primero"){
             when { //¿¿esto solo funciona con las variables que te da JENKINS??
                 expression {
@@ -46,3 +47,4 @@ pipeline{
                 }
 
             }
+}

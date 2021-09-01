@@ -16,8 +16,7 @@ pipeline{
                 }
             }
         }
-    
-    stages {
+
         stage ("Definir jobs id"){
             steps{
                 script{
@@ -30,6 +29,7 @@ pipeline{
         stage ("Echo jobs id"){
             steps{
                 echo "${jobsid}"
+                echo jobsid
                 }
             }
         }

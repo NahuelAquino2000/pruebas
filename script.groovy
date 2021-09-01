@@ -4,7 +4,7 @@ def function() {
     if(ageOld == 5){
         println("Go to kindergarten")
     } else if((ageOld > 5) && (ageOld < 18)){
-        printf("Go to grande %d \n", (ageOld - 5));
+        printf("Go to grande \n", (ageOld - 5));
     } else {
       println("Go to college");
     }

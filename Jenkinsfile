@@ -23,10 +23,8 @@ pipeline{
         stage ("Probando Groovy Scripts"){
 
             steps{
-                script {
-                    gv = load "script.groovy"
-                }
-
+                gv.function()
+        
             }
         }
 }

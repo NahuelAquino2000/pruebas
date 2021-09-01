@@ -20,7 +20,7 @@ pipeline{
         stage ("Definir jobs id"){
             steps{
                 script{
-                    gv.jobidcheck
+                    gv.jobidcheck()
                 }
                 }
             }

@@ -3,30 +3,26 @@ pipeline{
     agent any
 
     environment {
-        //podría mandar los JOBS ID acá
+        //podría mandar los JOBS ID acá (creo que no) o en el groovy script
         JOBS_ID = 'PRITDUR2'
-        VAR_TEST = 'Prueba Variable 1'
     }
     
     stages {
-
-        stage ("init"){ //creo que es para llamar el script de groovy
-            
+        stage ("Definir jobs id"){
             steps{
-                script {
-                    gv = load "script.groovy"
-                }
-
-            }
-
-        }
-        stage ("Probando Groovy Scripts"){
-
-            steps{
-                script{
-                    gv.function()
+                jobsid = ['job1','job2','job3'];
                 }
             }
         }
-}
-}
+
+        stage ("Echo jobs id"){
+            steps{
+                echo jobsid
+                }
+            }
+        }
+    post {
+        always{
+            echo 'post condition always'
+        }
+    }

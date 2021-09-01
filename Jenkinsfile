@@ -24,9 +24,11 @@ pipeline{
                 }
             }
 
-        stage ("Echo jobs id"){
+        stage ("Probando 2da parte del script de groovy"){
             steps{
-                echo 'esto funciona???'
+                script{
+                    gv.otropaso()
+                }
                 }
             }
         }

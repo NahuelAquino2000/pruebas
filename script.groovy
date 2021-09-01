@@ -1,8 +1,17 @@
-def function() {
+def jobidcheck() {
     
     def jobsid = ['job1','job2','job3','job4'];
+    echo "${jobsid}"
+    println("prueba de println " + jobsid)
 
-    echo "${jobs_id}"
+}
+
+def otropaso() {
+    
+    def otropasovar = 'random1'
+
+    echo "${jobsid}"
+    echo "${otropasovar}"
     println("prueba de println " + jobsid[3])
 
 }

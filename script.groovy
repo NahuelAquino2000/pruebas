@@ -1,15 +1,8 @@
 def function() {
+    
     def ageOld = 6
+    echo "${ageOld}"
 
-    if(ageOld == 5){
-        println("Go to kindergarten")
-    } else if((ageOld > 5) && (ageOld < 18)){
-        printf("Go to grande \n", (ageOld - 5));
-    } else {
-      println("Go to college");
-    }
-       
-    }
 }
 
 return this //Esto es para importarlo al Jenkinsfile

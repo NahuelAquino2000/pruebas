@@ -1,7 +1,9 @@
 def function() {
     
-    def ageOld = 6
-    echo "${ageOld}"
+    def jobsid = ['job1','job2','job3','job4'];
+
+    echo "${jobs_id}"
+    println("prueba de println " + jobsid[3])
 
 }
 

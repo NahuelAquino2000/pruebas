@@ -15,7 +15,6 @@ pipeline{
                 }
                 }
             }
-        }
 
         stage ("Definir jobs id"){
             steps{
@@ -24,7 +23,6 @@ pipeline{
                 }
                 }
             }
-        }
 
         stage ("Echo jobs id"){
             steps{
@@ -32,8 +30,11 @@ pipeline{
                 echo jobsid
                 }
             }
+        }
+            
     post {
         always{
             echo 'post condition always'
         }
     }
+}

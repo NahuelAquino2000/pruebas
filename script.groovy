@@ -9,10 +9,8 @@ def jobidcheck() {
 def otropaso() {
     
     def otropasovar = 'random1'
-
-    echo "${jobsid}"
+    
     echo "${otropasovar}"
-    println("prueba de println " + jobsid[3])
 
 }
 

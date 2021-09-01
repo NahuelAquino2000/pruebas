@@ -26,7 +26,7 @@ pipeline{
 
         stage ("Echo jobs id"){
             steps{
-                echo "${jobsid}"
+                echo 'esto funciona???'
                 }
             }
         }

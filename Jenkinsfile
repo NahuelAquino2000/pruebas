@@ -8,9 +8,21 @@ pipeline{
     }
     
     stages {
+        stage ("init groovy script"){
+            steps{
+                script{
+                    gv = load "script.groovy"
+                }
+                }
+            }
+        }
+    
+    stages {
         stage ("Definir jobs id"){
             steps{
-                jobsid = ['job1','job2','job3'];
+                script{
+                    gv.jobidcheck
+                }
                 }
             }
         }

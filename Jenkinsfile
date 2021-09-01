@@ -5,8 +5,8 @@ pipeline{
     environment {
         //podría mandar los JOBS ID acá (al parecer no se puede) o en el groovy script
         // JOBS_ID = 'PRITDUR2' //no puedo poner listas
-        JOBS_ID_EXIST = "true"
-        JOB_HAS_PREREQ = "false"
+        def variable1 = "true"
+        def variable2 = "false"
         // JOB_PREREQ_ACCOMP = true
         // JOB_PREREQ_CANBEEXEC = true
         // JOB_HAS_MULTIJOBS = true
@@ -18,7 +18,7 @@ pipeline{
         stage ("Primero"){
             when { //¿¿esto solo funciona con las variables que te da JENKINS??
                 expression {
-                    JOBS_ID_EXISTE == "true" 
+                    variable1 == "true" 
                 }
             }
             steps{
@@ -35,7 +35,7 @@ pipeline{
         stage ("Segundo"){
             when { //¿¿esto solo funciona con las variables que te da JENKINS??
                 expression {
-                    JOB_HAS_PREREQ = "true"  
+                    variable2 = "true"  
                 }
             }
             steps{

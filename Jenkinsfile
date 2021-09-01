@@ -40,10 +40,10 @@ pipeline {
         }
     }
 
-    post{ 
-        always{
+    //post{ 
+    //    always{
             //Close the ticket
-        }
-    }
+    //    }
+    //}
 
 }

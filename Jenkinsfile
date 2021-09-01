@@ -4,7 +4,7 @@ pipeline {
 
     environment {
         //podría mandar los JOBS ID acá
-        JOBS_ID = ('PRITDUR2', 'PRITDUR4', 'PRRHPREJ', 'RRRHVACA')
+        JOBS_ID = 'PRITDUR2'
         VAR_TEST = 'Prueba Variable 1'
     }
     

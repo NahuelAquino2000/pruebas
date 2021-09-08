@@ -14,7 +14,7 @@ pipeline {
                 login=$(curl -k -s -H "Content-Type: application/json" -X POST -d \\{\\"username\\":\\"$username\\",\\"password\\":\\"$password\\"\\} "$ENDPOINT/session/login" )
                 token=$(echo ${login##*token\\" : \\"} | cut -d '"' -f 1)
                 # Build
-                curl -v https://192.168.1.17:8443/automation-api
+                curl -k -v https://192.168.1.17:8443/automation-api
                 '''
             }
         }

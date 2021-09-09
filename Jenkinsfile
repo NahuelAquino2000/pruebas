@@ -22,7 +22,7 @@ pipeline {
                 curl -k -H "Authorization: Bearer $token" -X POST -F "definitionsFile=@job.json" "$ENDPOINT/deploy"
                 
                 #Test Run
-                runId=$(curl -k -H "Authorization: Bearer $token" -X POST -F "jobDefinitionsFile=@job.json" "$ENDPOINT/run" | grep 'runId')
+                runId=$(curl -k -H "Authorization: Bearer $token" -X POST -F "jobDefinitionsFile=@job.json" "$ENDPOINT/run" | grep ^[0-9]+)
 
 
                 echo "este es tu variable runId = $runId"

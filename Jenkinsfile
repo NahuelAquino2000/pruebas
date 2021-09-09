@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Build') {
             environment {
-                CONTROLM_CREDS = credentials('CredentialsTest')
+                CONTROLM_CREDS = credentials('workbench') //Ya están en Jenkins - Sería "ctmapiusr" o "CredControlM" ?
                 ENDPOINT = 'https://192.168.1.17:8443/automation-api'
             }
             steps {
@@ -17,6 +17,17 @@ pipeline {
                 curl -k -v https://192.168.1.17:8443/automation-api
                 '''
             }
+
+        stage('TestJob1') {
+            // environment {
+            //     CONTROLM_CREDS = credentials('workbench') //Ya están en Jenkins - Sería "ctmapiusr" o "CredControlM" ?
+            //     ENDPOINT = 'https://192.168.1.17:8443/automation-api'
+            // }
+            steps {
+                sh '''
+                curl -k -H "Authorization: Bearer $token" -X POST -F "definitionsFile=job.json" "$endpoint/build"
+                '''
+            }    
         }
         
     }

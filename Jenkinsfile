@@ -29,7 +29,7 @@ pipeline {
                 
                 
                 #Test status 
-                #curl -k -H "Authorization: Bearer $token" "$ENDPOINT/run/status/$runId" "$ENDPOINT/run"
+                curl -k -H "Authorization: Bearer $token" "$ENDPOINT/run/status/$runId" "$ENDPOINT/run"
 
 
                 '''

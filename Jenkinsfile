@@ -26,6 +26,15 @@ pipeline {
                 
                 #Test Run
                 curl -k -H "Authorization: Bearer $token" -X POST -F "jobDefinitionsFile=@job.json" "$ENDPOINT/run"
+
+                #¿Como consigo el runId para ponerlo en una variable ($runId)?
+
+                curl -k -H "Authorization: Bearer $token" -X GET "runId=$runId" 
+
+                #Test status 
+                curl -H "Authorization: Bearer $token" "$ENDPOINT/run/status/$runId"
+
+
                 '''
             }
         }

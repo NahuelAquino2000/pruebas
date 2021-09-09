@@ -5,13 +5,11 @@ pipeline {
             environment {
                 CONTROLM_CREDS = credentials('CredentialsTest')
                 ENDPOINT = 'https://192.168.1.11:8443/automation-api'
-                // ctm = 'Workbench'
             }
             steps {
                 sh '''
                 username=$CONTROLM_CREDS_USR
                 password=$CONTROLM_CREDS_PSW
-                # ctm= Workbench
                 
                 # Login
                 login=$(curl -k -s -H "Content-Type: application/json" -X POST -d \\{\\"username\\":\\"$username\\",\\"password\\":\\"$password\\"\\} "$ENDPOINT/session/login" )
@@ -25,7 +23,8 @@ pipeline {
 
                 
                 #Testeo tiene que funcionar
-                runId=$(curl -k -H "Authorization: Bearer $token" -X POST  -F "jobDefinitionsFile=@job.json" "$endpoint/run" | grep runId | cut -d '"' -f 4)
+                runId=$(curl -k -H "Authorization: Bearer $token" -X POST  -F "jobDefinitionsFile=@job.json" "$endpoint/run")
+                # | grep runId | cut -d '"' -f 4
 
                 #Test Run order & get Run id
                 #runId=$(curl -kX POST -H "Authorization: Bearer $token" --header "Content-Type: application/json" --header "Accept: application/json" -d "{ \"ctm\": \"$ctm\", \"folder\": \"$folderName\", \"hold\": \"false\", \"ignoreCriteria\": \"true\", \"orderDate\": \"20210909\", \"waitForOrderDate\": \"false\", \"orderIntoFolder\": \"Recent\", \"variables\": [{\"arg\":\"12345\"}]}" "$endpoint/run/order" | grep runId | cut -d '"' -f 4)

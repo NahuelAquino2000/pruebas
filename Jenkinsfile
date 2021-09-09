@@ -5,6 +5,7 @@ pipeline {
             environment {
                 CONTROLM_CREDS = credentials('CredentialsTest')
                 ENDPOINT = 'https://192.168.1.11:8443/automation-api'
+                ctm=Workbench
             }
             steps {
                 sh '''
@@ -43,7 +44,7 @@ pipeline {
                 curl -k -H "Authorization: Bearer $token" "$ENDPOINT/run/status/$runId"
                 
                 #Test get jobid
-                curl -kH "Authorization: Bearer $token" "$endpoint/run/status/$runId" | grep jobId | cut -d '"' -f 4
+                curl -kH "Authorization: Bearer $token" "$ENDPOINT/run/status/$runId" | grep jobId | cut -d '"' -f 4
                 '''
             }
         }

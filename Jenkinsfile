@@ -20,6 +20,9 @@ pipeline {
         }
 
         stage('TestJob1') {
+            environment {
+                ENDPOINT = 'https://192.168.1.17:8443/automation-api'
+            }
             steps {
                 sh '''
                 curl -k -H "Authorization: Bearer $token" -X POST -F "definitionsFile=job.json" "$ENDPOINT/build"

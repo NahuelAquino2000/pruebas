@@ -22,7 +22,7 @@ pipeline {
         stage('TestJob1') {
             steps {
                 sh '''
-                curl -k -H "Authorization: Bearer $token" -X POST -F "definitionsFile=job.json" "$endpoint/build"
+                curl -k -H "Authorization: Bearer $token" -X POST -F "definitionsFile=job.json" "$ENDPOINT/build"
                 '''
             }    
         }

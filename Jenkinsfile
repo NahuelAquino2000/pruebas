@@ -26,11 +26,6 @@ pipeline {
                 
                 #Test Run
                 curl -k -H "Authorization: Bearer $token" -X POST -F "jobDefinitionsFile=@job.json" "$ENDPOINT/run"
-                
-                //curl -k -H "Authorization: Bearer $token" -X GET qrunID
-                
-                //#Test status/runID
-                //curl -k -H "Authorization: Bearer $token" "$endpoint/run/status/$runId"
                 '''
             }
         }

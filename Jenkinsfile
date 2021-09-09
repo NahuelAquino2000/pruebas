@@ -21,11 +21,7 @@ pipeline {
 
                 #Test deploy & get folder name
                 folderName=$(curl -k -H "Authorization: Bearer $token" -X POST -F "definitionsFile=@job.json" "$ENDPOINT/deploy" | grep deployedFolders | cut -d '"' -f 4)
-                
-                #Test Run
-                runId=$(curl -k -H "Authorization: Bearer $token" -X POST -F "jobDefinitionsFile=@job.json" "$ENDPOINT/run" | cut -d '"' -f 2)
 
-                echo "este es tu variable runId = $runId"
                 
                 #Test Run order & get Run id
                 #runId=$(curl -kX POST -H "Authorization: Bearer $token" --header "Content-Type: application/json" --header "Accept: application/json" -d "{ \"ctm\": \"$ctm\", \"folder\": \"$folderName\", \"hold\": \"false\", \"ignoreCriteria\": \"true\", \"orderDate\": \"20210909\", \"waitForOrderDate\": \"false\", \"orderIntoFolder\": \"Recent\", \"variables\": [{\"arg\":\"12345\"}]}" "$endpoint/run/order" | grep runId | cut -d '"' -f 4)
@@ -41,6 +37,8 @@ pipeline {
                   \"variables\": [{\"arg\":\"12345\"}]
                 }" "$endpoint/run/order" | grep runId | cut -d '"' -f 4)
 
+                echo "este es tu variable runId = $runId"                
+                
                 #Test status 
                 curl -k -H "Authorization: Bearer $token" "$ENDPOINT/run/status/$runId"
                 

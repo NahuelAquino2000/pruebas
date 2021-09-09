@@ -19,7 +19,7 @@ pipeline {
                 curl -k -v https://192.168.1.17:8443/automation-api
                 
                 #Test Deploy
-                curl -k -H "Authorization: Bearer $token" -X POST  -F "definitionsFile=job.json" "https://192.168.1.17:8443/automation-api/deploy" 
+                curl -k -H "Authorization: Bearer $token" -X POST -F "definitionsFile=@job1.json" "$ENDPOINT/build" 
                 
                 #Test Build
                 curl -k -H "Authorization: Bearer $token" -X POST -F "definitionsFile=job.json" "$ENDPOINT/build"

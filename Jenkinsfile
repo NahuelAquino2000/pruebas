@@ -4,7 +4,7 @@ pipeline {
         stage('Build') {
             environment {
                 CONTROLM_CREDS = credentials('CredentialsTest')
-                ENDPOINT = 'https://192.168.1.17:8443/automation-api'
+                ENDPOINT = 'https://192.168.1.11:8443/automation-api'
             }
             steps {
                 sh '''
@@ -16,7 +16,7 @@ pipeline {
                 token=$(echo ${login##*token\\" : \\"} | cut -d '"' -f 1)
                 
                 # Curl -v
-                curl -k -v https://192.168.1.17:8443/automation-api
+                curl -k -v https://192.168.1.11:8443/automation-api
 
                 #Test Build
                 curl -k -H "Authorization: Bearer $token" -X POST -F "definitionsFile=@job.json" "$ENDPOINT/deploy"

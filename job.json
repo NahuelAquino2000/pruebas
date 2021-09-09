@@ -1,0 +1,22 @@
+{
+    "FlowSamples" : 
+    {
+        "Type" : "Folder",
+
+        "Job1": {
+            "Type" : "Job:Command",
+            "Command" : "echo 'This is the first JOB'",
+            "RunAs" : "workbench"  
+        },
+        "Job2": {
+            "Type": "Job:Command",
+            "Command" : "echo 'This is the second JOB'",
+            "RunAs": "workbench"
+        },
+        "flow1": {
+            "Type": "Flow",
+            "Sequence": ["Job1", "Job2"]
+        }
+}
+}
+

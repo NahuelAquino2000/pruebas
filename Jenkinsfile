@@ -17,6 +17,7 @@ pipeline {
                 curl -k -v https://192.168.1.17:8443/automation-api
                 '''
             }
+        }
 
         stage('TestJob1') {
             steps {

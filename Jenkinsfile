@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Build') {
             environment {
-                CONTROLM_CREDS = credentials('workbench') //Ya están en Jenkins - Sería "ctmapiusr" o "CredControlM" ?
+                CONTROLM_CREDS = credentials('CredentialsTest')
                 ENDPOINT = 'https://192.168.1.17:8443/automation-api'
             }
             steps {

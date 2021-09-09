@@ -25,12 +25,12 @@ pipeline {
                 curl -k -H "Authorization: Bearer $token" -X POST -F "definitionsFile=@job.json" "$ENDPOINT/deploy"
                 
                 #Test Run
-                curl -H "Authorization: Bearer $token" -X POST -F "jobDefinitionsFile=@job.json" "$ENDPOINT/run"
+                curl -k -H "Authorization: Bearer $token" -X POST -F "jobDefinitionsFile=@job.json" "$ENDPOINT/run"
                 
-                //curl -H "Authorization: Bearer $token" -X GET qrunID
+                //curl -k -H "Authorization: Bearer $token" -X GET qrunID
                 
                 //#Test status/runID
-                //curl -H "Authorization: Bearer $token" "$endpoint/run/status/$runId"
+                //curl -k -H "Authorization: Bearer $token" "$endpoint/run/status/$runId"
                 '''
             }
         }

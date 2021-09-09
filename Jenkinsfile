@@ -29,10 +29,10 @@ pipeline {
 
                 #¿Como consigo el runId para ponerlo en una variable ($runId)?
 
-                curl -k -H "Authorization: Bearer $token" -X GET "runId=$runId" 
+                runId=$(echo $runId)
 
                 #Test status 
-                curl -H "Authorization: Bearer $token" "$ENDPOINT/run/status/$runId"
+                curl -H "Authorization: Bearer $token" "$ENDPOINT/run/status/$runId" "$ENDPOINT/run"
 
 
                 '''

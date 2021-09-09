@@ -23,7 +23,7 @@ pipeline {
 
                 
                 #Testeo tiene que funcionar
-                runId=$(curl -k -H "Authorization: Bearer $token" -X POST  -F "jobDefinitionsFile=@job.json" "$endpoint/run")
+                runId=$(curl -k -H "Authorization: Bearer $token" -X POST  -F "jobDefinitionsFile=@job.json" "$ENDPOINT/run")
                 # | grep runId | cut -d '"' -f 4
 
                 #Test Run order & get Run id

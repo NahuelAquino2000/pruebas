@@ -25,7 +25,7 @@ pipeline {
 
                 
                 #Testeo tiene que funcionar
-                runId=$(curl -H "Authorization: Bearer $token" -X POST  -F "jobDefinitionsFile=@examples/AutomationAPISampleFlow.json" -F "deployDescriptorFile=@examples/deployDescriptor.json" "$endpoint/run" | grep runId | cut -d '"' -f 4)
+                runId=$(curl -k -H "Authorization: Bearer $token" -X POST  -F "jobDefinitionsFile=@examples/AutomationAPISampleFlow.json" -F "deployDescriptorFile=@examples/deployDescriptor.json" "$endpoint/run" | grep runId | cut -d '"' -f 4)
 
                 #Test Run order & get Run id
                 #runId=$(curl -kX POST -H "Authorization: Bearer $token" --header "Content-Type: application/json" --header "Accept: application/json" -d "{ \"ctm\": \"$ctm\", \"folder\": \"$folderName\", \"hold\": \"false\", \"ignoreCriteria\": \"true\", \"orderDate\": \"20210909\", \"waitForOrderDate\": \"false\", \"orderIntoFolder\": \"Recent\", \"variables\": [{\"arg\":\"12345\"}]}" "$endpoint/run/order" | grep runId | cut -d '"' -f 4)

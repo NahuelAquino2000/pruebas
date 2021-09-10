@@ -23,10 +23,10 @@ pipeline {
                 token=$(echo ${login##*token\\" : \\"} | cut -d '"' -f 1)
                 
                 # Curl -v
-                curl -k -v https://192.168.1.11:8443/automation-api
+                #curl -k -v https://192.168.1.11:8443/automation-api
 
                 #Test deploy job & get folder name
-                folderName=$(curl -k -H "Authorization: Bearer $token" -X POST -F "definitionsFile=@$filename" "$endpoint/deploy" | grep deployedFolders | cut -d '"' -f 4)
+                folderName=$(curl -k -H "Authorization: Bearer $token" -X POST -F "definitionsFile=@$filename .json" "$endpoint/deploy" | grep deployedFolders | cut -d '"' -f 4)
 
                 
                 #Test run order of a non-deployed job & get run id (funciona)

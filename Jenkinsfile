@@ -36,15 +36,17 @@ pipeline {
                   \\"waitForOrderDate\\": \\"false\\",
                   \\"orderIntoFolder\\": \\"Recent\\",
                   \\"variables\\": [{\\"arg\\":\\"12345\\"}]
-                }" "$endpoint/run/order" | grep runId | cut -d '"' -f 4)
+                }" "$endpoint/run/order" | grep runId | cut -d '"' -f 2)
 
                 echo "este es tu variable runId = $runId"                
                 
                 #Test status 
-                curl -k -H "Authorization: Bearer $token" "$endpoint/run/status/$runId"
-                
-                #Test get jobid
-                curl -kH "Authorization: Bearer $token" "$endpoint/run/status/$runId" | grep jobId | cut -d '"' -f 4
+                curl -k -H "Authorization: Bearer $token" "$endpoint/run/status/$runId"4
+
+                for i in {1...5}
+                do
+                    curl -k -H "Authorization: Bearer $token" "$endpoint/run/status/$runId"4
+                done
                 '''
             }
         }

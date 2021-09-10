@@ -40,13 +40,17 @@ pipeline {
 
                 echo "este es tu variable runId = $runId"                
                 
-                #Test status 
-                curl -k -H "Authorization: Bearer $token" "$endpoint/run/status/$runId"
-
+             
 
                 #Test find job definitions
                 curl -k  -H "Authorization: Bearer $token" "$endpoint/deploy/jobs?server=*&folder=*"
-                
+
+                #Test get jobs outputs
+                curl -H "Authorization: Bearer $token" "$endpoint/run/job/$jobId/output/?runNo=0"
+
+                #Test status 
+                curl -k -H "Authorization: Bearer $token" "$endpoint/run/status/$runId"
+
                 #Test logs 
                 curl -k -H "Authorization: Bearer $token" "$endpoint/run/status/$runId/log"
                 '''

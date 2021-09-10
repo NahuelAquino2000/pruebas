@@ -3,19 +3,19 @@
     {
         "Type" : "Folder",
 
-        "Job1": {
+        "Job3": {
             "Type" : "Job:Command",
-            "Command" : "echo 'This is the first JOB'",
+            "Command" : "echo 'Job3, primero del Flow, carpeta tipo Folder (SmartFolder)'",
             "RunAs" : "workbench"  
         },
-        "Job2": {
+        "Job4": {
             "Type": "Job:Command",
-            "Command" : "echo 'This is the second JOB'",
+            "Command" : "echo 'Job4, segundo del Flow, carpeta tipo Folder (SmartFolder)'",
             "RunAs": "workbench"
         },
         "flow1": {
             "Type": "Flow",
-            "Sequence": ["Job1", "Job2"]
+            "Sequence": ["Job3", "Job4"]
         }
 }
 }

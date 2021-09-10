@@ -7,6 +7,13 @@
             "Type" : "Job:Command",
             "Comment" : "Nahuel tests",
             "Command" : "echo 'Job3, primero del Flow, carpeta tipo Folder (SmartFolder)'",
+            "RunAs" : "workbench",
+
+            "Notificacion1": {
+                "Type": "Notify:OK",
+                "Message": "Job run OK SALIo BIEN AMIGOOO",
+                "Destination": "JobLog"
+               },
             
             "SaleBien" : {
                 "Type": "If",        
@@ -15,8 +22,9 @@
             "ExecJobSiguiente": {
                 "Type": "Action:Run",
                 "Folder": "FlowSamples",
-                "Job": "Job4"
+                "Job": "Job5"
                }  
+            }
         },
         "Job4": {
             "Type": "Job:Command",
@@ -24,11 +32,19 @@
             "Command" : "echo 'Job4, segundo del Flow, carpeta tipo Folder (SmartFolder)'",
             "RunAs": "workbench"
         },
+
+        "Job5": {
+            "Type": "Job:Command",
+            "Comment" : "Nahuel tests",
+            "Command" : "echo 'Job5, probando dependencias, carpeta tipo Folder (SmartFolder)'",
+            "RunAs": "workbench"
+        },
+
         "flow1": {
             "Type": "Flow",
             "Sequence": ["Job3", "Job4"]
         }
 }
 }
-}
+
 

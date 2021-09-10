@@ -1,5 +1,11 @@
 pipeline {
     agent any
+    parameters {
+        choice(
+            choices: ['SimpleFolder' , 'SmartFolder', 'SmartFolderComplex'],
+            description: 'Select the folder that you want to deploy',
+            name: 'filename')
+    }
     stages {
         stage('Build') {
             environment {
@@ -20,11 +26,14 @@ pipeline {
                 curl -k -v https://192.168.1.11:8443/automation-api
 
                 #Test deploy job & get folder name
-                folderName=$(curl -k -H "Authorization: Bearer $token" -X POST -F "definitionsFile=@job3.json" "$endpoint/deploy" | grep deployedFolders | cut -d '"' -f 4)
+                folderName=$(curl -k -H "Authorization: Bearer $token" -X POST -F "definitionsFile=@$filename" "$endpoint/deploy" | grep deployedFolders | cut -d '"' -f 4)
 
                 
                 #Test run order of a non-deployed job & get run id (funciona)
                 #runId=$(curl -k -H "Authorization: Bearer $token" -X POST  -F "jobDefinitionsFile=@job.json" "$endpoint/run" | grep runId | cut -d '"' -f 4)
+
+                #Test find job definitions
+                curl -k  -H "Authorization: Bearer $token" "$endpoint/deploy/jobs?server=$ctm&folder=$folderName"
 
                 #Test Run order of a deployed job & get Run id
                 runId=$(curl -k -H "Authorization: Bearer $token" -X POST --header "Content-Type: application/json" --header "Accept: application/json" -d "{
@@ -39,20 +48,22 @@ pipeline {
                 }" "$endpoint/run/order" | grep runId | cut -d '"' -f 4)
 
                 echo "este es tu variable runId = $runId"                
-                
-                echo "este es tu jobId = $jobId"
 
                 #Test find job definitions
                 curl -k  -H "Authorization: Bearer $token" "$endpoint/deploy/jobs?server=$ctm&folder=$folderName"
 
-                #Test get jobs outputs
-                curl -k -H "Authorization: Bearer $token" "$endpoint/run/job/$jobId/output/?runNo=0"
+                #Test get jobs outputs ¿De donde saco el jobId? 
+                #The jobId is used to reference the specific job and is returned by ctm run status. The format of this ID is <ctm_server>:<orderId>.
+                #curl -k -H "Authorization: Bearer $token" "$endpoint/run/job/$jobId/output/?runNo=0"
 
-                #Test status 
-                curl -k -H "Authorization: Bearer $token" "$endpoint/run/status/$runId"
+                #Test status (no funciona)
+                #curl -k -H "Authorization: Bearer $token" "$endpoint/run/status/$runId"
 
-                #Test logs 
-                curl -k -H "Authorization: Bearer $token" "$endpoint/run/status/$runId/log"
+                #Test run status (no funciona)
+                #curl -k -H "Authorization: Bearer $token" "$endpoint/run/status/$runId/log"
+
+                #Test get log (no funciona)
+                #curl -H "Authorization: Bearer $token" "$endpoint/run/job/$jobId/log"
                 '''
             }
         }

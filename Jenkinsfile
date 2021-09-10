@@ -38,7 +38,7 @@ pipeline {
                   \"waitForOrderDate\": \"false\",
                   \"orderIntoFolder\": \"Recent\",
                   \"variables\": [{\"arg\":\"12345\"}]
-                }" "$endpoint/run/order")
+                }" "$endpoint/run/order"
                 
                 # | grep runId | cut -d '"' -f 4)
 

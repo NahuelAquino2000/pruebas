@@ -45,7 +45,7 @@ pipeline {
 
 
                 #Test find job definitions
-                curl -k  -H "Authorization: Bearer $token" "$endpoint/deploy/jobs?server=*&folder=Auto*"
+                curl -k  -H "Authorization: Bearer $token" "$endpoint/deploy/jobs?server=*&folder=*"
                 
                 #Test logs 
                 curl -k -H "Authorization: Bearer $token" "$endpoint/run/status/$runId/log"

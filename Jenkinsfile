@@ -43,13 +43,17 @@ pipeline {
                 #Test status 
                 curl -k -H "Authorization: Bearer $token" "$endpoint/run/status/$runId"
 
-                for i in {1...5}
-                do
-                    curl -k -H "Authorization: Bearer $token" "$endpoint/run/status/$runId"
-                done
+
+                #Test find job definitions
+                curl -k  -H "Authorization: Bearer $token" "$endpoint/deploy/jobs?server=*&folder=Auto*"
+                
+                #Test logs 
+                curl -k -H "Authorization: Bearer $token" "$endpoint/run/status/$runId/log"
                 '''
             }
         }
         
     }
 }
+
+

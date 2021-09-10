@@ -41,11 +41,11 @@ pipeline {
                 echo "este es tu variable runId = $runId"                
                 
                 #Test status 
-                curl -k -H "Authorization: Bearer $token" "$endpoint/run/status/$runId"4
+                curl -k -H "Authorization: Bearer $token" "$endpoint/run/status/$runId"
 
                 for i in {1...5}
                 do
-                    curl -k -H "Authorization: Bearer $token" "$endpoint/run/status/$runId"4
+                    curl -k -H "Authorization: Bearer $token" "$endpoint/run/status/$runId"
                 done
                 '''
             }

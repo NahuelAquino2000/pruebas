@@ -41,9 +41,7 @@ pipeline {
                 
                 # | grep runId | cut -d '"' -f 4)
 
-                runId=$(curl -k -X POST -H "Authorization: Bearer $token" --header "Content-Type: application/json" --header "Accept: application/json" -d "{\"ctm\": \"$ctm\",\"folder\": \"$folderName\",\"hold\": \"true\",\"ignoreCriteria\": \"true\",\"orderDate\": \"20210910\",\"waitForOrderDate\": \"false\",\"orderIntoFolder\": \"Recent\",\"variables\": [{\"arg\":\"12345\"}]}" "$endpoint/run/order")
-                
-                # | grep runId | cut -d '"' -f 4)
+                runId=$(curl -k -X POST -H "Authorization: Bearer $token" --header "Content-Type: application/json" --header "Accept: application/json" -d "{\"ctm\": \"$ctm\",\"folder\": \"$folderName\",\"hold\": \"true\",\"ignoreCriteria\": \"true\",\"orderDate\": \"20210910\",\"waitForOrderDate\": \"false\",\"orderIntoFolder\": \"Recent\",\"variables\": [{\"arg\":\"12345\"}]}" "$endpoint/run/order" | grep runId | cut -d '"' -f 4)
 
                 echo "este es tu variable runId = $runId"                
                 

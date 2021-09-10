@@ -36,9 +36,9 @@ pipeline {
                   \\"waitForOrderDate\\": \\"false\\",
                   \\"orderIntoFolder\\": \\"Recent\\",
                   \\"variables\\": [{\\"arg\\":\\"12345\\"}]
-                }" "$endpoint/run/order" | grep runId)
+                }" "$endpoint/run/order")
                 
-                # | cut -d '"' -f 4)
+                # | grep runId | cut -d '"' -f 4)
 
                 echo "este es tu variable runId = $runId"                
                 

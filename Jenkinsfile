@@ -20,7 +20,7 @@ pipeline {
                 curl -k -v https://192.168.1.11:8443/automation-api
 
                 #Test deploy job & get folder name
-                folderName=$(curl -k -H "Authorization: Bearer $token" -X POST -F "definitionsFile=@job.json" "$endpoint/deploy" | grep deployedFolders | cut -d '"' -f 4)
+                folderName=$(curl -k -H "Authorization: Bearer $token" -X POST -F "definitionsFile=@job3.json" "$endpoint/deploy" | grep deployedFolders | cut -d '"' -f 4)
 
                 
                 #Test run order of a non-deployed job & get run id (funciona)

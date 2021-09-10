@@ -29,7 +29,7 @@ pipeline {
                 #Test Run order & get Run id
 
                 #runId=$(
-                curl -k -X POST -H "Authorization: Bearer $token" --header "Content-Type: application/json" --header "Accept: application/json" -d "{
+                curl -k -H "Authorization: Bearer $token" -X POST --header "Content-Type: application/json" --header "Accept: application/json" -d "{
                   \"ctm\": \"$ctm\",
                   \"folder\": \"$folderName\",
                   \"hold\": \"true\",

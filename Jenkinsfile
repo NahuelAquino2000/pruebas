@@ -31,14 +31,14 @@ pipeline {
                 #runId=$(
 
                 curl -k -H "Authorization: Bearer $token" -X POST --header "Content-Type: application/json" --header "Accept: application/json" -d "{
-                  "ctm": "$ctm",
-                  "folder": "$folderName",
-                  "hold": "true",
-                  "ignoreCriteria": "true",
-                  "orderDate": "20210910",
-                  "waitForOrderDate": "false",
-                  "orderIntoFolder": "Recent",
-                  "variables": [{"arg":"12345"}]
+                  \\\"ctm\\\": \\\"$ctm\\\",
+                  \\\"folder\\\": \\\"$folderName\\\",
+                  \\\"hold\\\": \\\"true\\\",
+                  \\\"ignoreCriteria\\\": \\\"true\\\",
+                  \\\"orderDate\\\": \\\"20210910\\\",
+                  \\\"waitForOrderDate\\\": \\\"false\\\",
+                  \\\"orderIntoFolderv\\\": \\\"Recent\\\",
+                  \\\"variables\\\": [{\\\"arg\\\":\\\"12345\\\"}]
                 }" "$endpoint/run/order"
                 
                 # | grep runId | cut -d '"' -f 4)

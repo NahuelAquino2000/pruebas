@@ -5,7 +5,7 @@ pipeline {
             environment {
                 CONTROLM_CREDS = credentials('CredentialsTest')
                 endpoint = 'https://192.168.1.11:8443/automation-api'
-                ctm = 'Workbench'
+                ctm = 'workbench'
             }
             steps {
                 sh '''

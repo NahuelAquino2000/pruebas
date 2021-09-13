@@ -43,6 +43,7 @@ pipeline {
                   \\"ignoreCriteria\\": \\"true\\",
                   \\"orderDate\\": \\"20210910\\",
                   \\"waitForOrderDate\\": \\"false\\",
+                  \\"independentFlow\\": \\"true\\",
                   \\"orderIntoFolder\\": \\"Recent\\",
                   \\"variables\\": [{\\"arg\\":\\"12345\\"}]
                 }" "$endpoint/run/order" | grep runId | cut -d '"' -f 4)
@@ -56,7 +57,7 @@ pipeline {
                 #The jobId is used to reference the specific job and is returned by ctm run status. The format of this ID is <ctm_server>:<orderId>.
                 
                 echo "GUARDO EN JOBID"
-                jobId=$(curl -kH "Authorization: Bearer $token" "$endpoint/run/status/$runId" | tac | tac | grep -HRl "jobId" . | cut -d '"' -f 4)
+                jobId=$(curl -kH "Authorization: Bearer $token" "$endpoint/run/status/$runId" | grep -HRl "jobId" . | cut -d '"' -f 4)
                 echo $jobId
 
                 #curl -k -H "Authorization: Bearer $token" "$endpoint/run/job/$jobId/output/?runNo=0"

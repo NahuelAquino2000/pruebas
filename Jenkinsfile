@@ -2,7 +2,7 @@ pipeline {
     agent any
     parameters {
         choice(
-            choices: ['SimpleFolder' , 'SmartFolder', 'SmartFolderComplex'],
+            choices: ['SimpleFolder' , 'SmartFolder', 'SmartFolderComplex', 'UniqueJob'],
             description: 'Select the folder that you want to deploy',
             name: 'filename')
     }

@@ -74,7 +74,7 @@ pipeline {
         stage('chequear las variables traidas del json con el slurper') {
             steps {
                 script {  
-                    def json = readFile(file:"bar.json")
+                    def json = readFile(file: "bar.json") 
                     def data = new JsonSlurper().parseText(bar)
                     echo "fecha: ${data.variables.'%%FECHA'} \n hd number: ${data.hd} \n var = ${data.'%%VAR'}"
 

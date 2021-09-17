@@ -1,0 +1,9 @@
+{
+	"hd": "123123", 
+	"area": "administracion de personal", 
+	"folderName": "SERVCONT", 
+	"variables": {
+	   "%%FECHA":"010921",
+	   "%%VAR":"1"
+	}
+}

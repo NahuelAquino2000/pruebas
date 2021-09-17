@@ -1,19 +1,133 @@
+import groovy.json.JsonSlurper
+import groovy.json.JsonBuilder
+
+@NonCPS //esto es para que no rompa en el jenkins
+
+// aca vendría el json del service desk
+// String json = '''[
+// { "name" : "Omar" , "lastname" : "Bautista" , "age" : 33 },
+// { "name" : "Jorge" , "lastname" : "Valenzuela" , "age" : 29 },
+// { "name" : "Maria" , "lastname" : "Ojeda" , "age" : 30 }
+// ]'''
+
+String bar = '''[{
+	"hd": "123123", 
+	"area": "administracion de personal", 
+	"folderName": "SimpleFlow", 
+	"variables": {
+	   "%%FECHA": "010921",
+	   "%%VAR": "1"
+	}
+  }]'''
+
+def hd = ''
+def area = ''
+def folderName = ''
+def variables = ''
+
+// node () {
+//     writeFile(
+//         file: "bar.json",
+//         text: """\
+//             {
+//             "hd": "123123", 
+//             "area": "administracion de personal", 
+//             "folderName": "SERVCONT", 
+//             "variables": {
+//                 "%%FECHA":"010921","%%VAR":"1"
+//                 }
+//             }
+//         """.stripIndent()
+//     )
+// }
+
+node () {
+    writeFile(
+        file: "filename.json",
+        text: """\
+            {
+                "SimpleFolder" : {
+                    "Type" : "SimpleFolder",
+
+                    "Job1": {
+                        "Type" : "Job:Command",
+                        "Comment" : "Nahuel tests",
+                        "Command" : "echo 'Job1 de SimpleFolder'",
+                        "RunAs" : "workbench"  
+                    },
+                    "Job2": {
+                        "Type": "Job:Command",
+                        "Comment" : "Nahuel tests",
+                        "Command" : "echo 'Job2 de SimpleFolder'",
+                        "RunAs": "workbench"
+                    }        
+            }
+            }
+        """.stripIndent()
+    )
+}
+
+
 pipeline {
     agent any
-    parameters {
-        choice(
-            choices: ['SimpleFolder' , 'SmartFolder', 'SmartFolderComplex', 'UniqueJob'],
-            description: 'Select the folder that you want to deploy',
-            name: 'filename')
-    }
     stages {
-        stage('Build') {
+        stage('chequear las variables traidas del json con el slurper') {
+            steps {
+                script {  
+                    // def json = readFile(file:"bar.json")
+                    def data = new JsonSlurper().parseText(bar)
+                    echo "fecha: ${data.variables.'%%FECHA'} \n hd number: ${data.hd} \n var = ${data.'%%VAR'}"
+
+                    //env.FOLDER_NAME = "${data.folderName}"
+                    env.HD_NUMBER = "${data.hd}"
+                    env.VAR_1 = "${data.'%%VAR'}"
+
+                    areaName = "${data.area}"
+                    folderName = "${data.folderName}"
+                }
+
+                // script {
+                //     def parametros = new JsonSlurper().parseText(json)
+                //     def folder = parametros*.folder
+
+                //     println folder
+
+                //     println "foldername is ${folder}"
+
+                //     env.TEST_VARIABLE = "${folder}"
+                // }
+                
+                
+                echo "HD_NUMBER = ${env.HD_NUMBER}"
+                echo "VAR_1 = ${env.VAR_1}"
+
+                echo "areaName = ${areaName}"
+                echo "folderName = ${folderName}"
+
+                
+            }
+        }
+
+        stage('PRUEBA DE VARIABLES DE ENTORNO ENTRE STAGES') {
+            steps {
+                
+                echo "HD_NUMBER = ${env.HD_NUMBER}"
+                echo "VAR_1 = ${env.VAR_1}"
+                
+                echo "areaName = ${areaName}"
+                echo "folderName = ${folderName}"
+
+            }
+        }
+
+        stage('logearse en control-m') {
             environment {
                 CONTROLM_CREDS = credentials('CredentialsTest')
                 endpoint = 'https://192.168.1.11:8443/automation-api'
                 ctm = 'workbench'
             }
             steps {
+                
                 sh '''
                 username=$CONTROLM_CREDS_USR
                 password=$CONTROLM_CREDS_PSW
@@ -24,13 +138,23 @@ pipeline {
                 
                 # Curl -v
                 #curl -k -v https://192.168.1.11:8443/automation-api
-
-                #Test deploy job & get folder name
-                folderName=$(curl -k -H "Authorization: Bearer $token" -X POST -F "definitionsFile=@$filename.json" "$endpoint/deploy" | grep deployedFolders | cut -d '"' -f 4)
-
+                '''
+            }
+        }
+        
+        stage('correr los jobs necesarios') {
+            steps {
                 
-                #Test run order of a non-deployed job & get run id (funciona)
-                #runId=$(curl -k -H "Authorization: Bearer $token" -X POST  -F "jobDefinitionsFile=@job.json" "$endpoint/run" | grep runId | cut -d '"' -f 4)
+                echo "ESTA ES LA FOLDERNAME PARA CORRER EL JOB folderName = ${folderName}"
+                
+                sh '''
+                #Test deploy job & get folder name
+                #folderName=$(  | grep deployedFolders | cut -d '"' -f 4)
+                
+                curl -k -H "Authorization: Bearer $token" -X POST -F "definitionsFile=@$filename.json" "$endpoint/deploy"
+                 
+
+                #Encontrar la manera de conseguir el foldername sin hacer un deploy
 
                 #Test find job definitions
                 curl -k  -H "Authorization: Bearer $token" "$endpoint/deploy/jobs?server=$ctm&folder=$folderName"
@@ -50,9 +174,6 @@ pipeline {
 
                 echo "este es tu variable runId = $runId"                
 
-                #Test find job definitions
-                curl -k  -H "Authorization: Bearer $token" "$endpoint/deploy/jobs?server=$ctm&folder=$folderName"
-
                 #Test get jobs outputs ¿De donde saco el jobId? 
                 #The jobId is used to reference the specific job and is returned by ctm run status. The format of this ID is <ctm_server>:<orderId>.
                 
@@ -64,17 +185,20 @@ pipeline {
 
                 #Test status (no funciona)
                 #curl -k -H "Authorization: Bearer $token" "$endpoint/run/status/$runId"
-
-                #Test run status (no funciona)
-                #curl -k -H "Authorization: Bearer $token" "$endpoint/run/status/$runId/log"
-
-                #Test get log (no funciona)
-                #curl -H "Authorization: Bearer $token" "$endpoint/run/job/$jobId/log"
                 '''
             }
         }
+
         
     }
-}
 
+    // post {
+    //     // Clean after build //Esto es un ejemplo, acomodar
+    //     always {
+    //         cleanWs(cleanWhenNotBuilt: false,
+    //                 deleteDirs: true,
+    //                 disableDeferredWipeout: true,
+    //                 notFailBuild: true)
+    //     }    
+}
 

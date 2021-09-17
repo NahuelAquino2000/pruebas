@@ -41,31 +41,31 @@ def variables = ''
 //     )
 // }
 
-node () {
-    writeFile(
-        file: "filename.json",
-        text: """\
-            {
-                "SimpleFolder" : {
-                    "Type" : "SimpleFolder",
+// node () {
+//     writeFile(
+//         file: "filename.json",
+//         text: """\
+//             {
+//                 "SimpleFolder" : {
+//                     "Type" : "SimpleFolder",
 
-                    "Job1": {
-                        "Type" : "Job:Command",
-                        "Comment" : "Nahuel tests",
-                        "Command" : "echo 'Job1 de SimpleFolder'",
-                        "RunAs" : "workbench"  
-                    },
-                    "Job2": {
-                        "Type": "Job:Command",
-                        "Comment" : "Nahuel tests",
-                        "Command" : "echo 'Job2 de SimpleFolder'",
-                        "RunAs": "workbench"
-                    }        
-            }
-            }
-        """.stripIndent()
-    )
-}
+//                     "Job1": {
+//                         "Type" : "Job:Command",
+//                         "Comment" : "Nahuel tests",
+//                         "Command" : "echo 'Job1 de SimpleFolder'",
+//                         "RunAs" : "workbench"  
+//                     },
+//                     "Job2": {
+//                         "Type": "Job:Command",
+//                         "Comment" : "Nahuel tests",
+//                         "Command" : "echo 'Job2 de SimpleFolder'",
+//                         "RunAs": "workbench"
+//                     }        
+//             }
+//             }
+//         """.stripIndent()
+//     )
+// }
 
 
 pipeline {
@@ -151,13 +151,13 @@ pipeline {
                 #Test deploy job & get folder name
                 #folderName=$(  | grep deployedFolders | cut -d '"' -f 4)
                 
-                curl -k -H "Authorization: Bearer $token" -X POST -F "definitionsFile=@$filename.json" "$endpoint/deploy"
+                curl -k -H "Authorization: Bearer $token" -X POST -F "definitionsFile=@SimpleFolder.json" "$endpoint/deploy"
                  
 
                 #Encontrar la manera de conseguir el foldername sin hacer un deploy
 
                 #Test find job definitions
-                curl -k  -H "Authorization: Bearer $token" "$endpoint/deploy/jobs?server=$ctm&folder=$folderName"
+                curl -k  -H "Authorization: Bearer $token" "$endpoint/deploy/jobs?server=$ctm&folder=${folderName}"
 
                 #Test Run order of a deployed job & get Run id
                 runId=$(curl -k -H "Authorization: Bearer $token" -X POST --header "Content-Type: application/json" --header "Accept: application/json" -d "{

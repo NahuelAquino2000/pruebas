@@ -10,15 +10,15 @@ import groovy.json.JsonBuilder
 // { "name" : "Maria" , "lastname" : "Ojeda" , "age" : 30 }
 // ]'''
 
-String bar = '''[{
-	"hd": "123123", 
-	"area": "administracion de personal", 
-	"folderName": "SimpleFlow", 
-	"variables": {
-	   "%%FECHA": "010921",
-	   "%%VAR": "1"
-	}
-  }]'''
+// String bar = '''[{
+// 	"hd": "123123", 
+// 	"area": "administracion de personal", 
+// 	"folderName": "SimpleFlow", 
+// 	"variables": {
+// 	   "%%FECHA": "010921",
+// 	   "%%VAR": "1"
+// 	}
+//   }]'''
 
 def hd = ''
 def area = ''
@@ -74,28 +74,16 @@ pipeline {
         stage('chequear las variables traidas del json con el slurper') {
             steps {
                 script {  
-                    // def json = readFile(file:"bar.json")
+                    def json = readFile(file:"bar.json")
                     def data = new JsonSlurper().parseText(bar)
                     echo "fecha: ${data.variables.'%%FECHA'} \n hd number: ${data.hd} \n var = ${data.'%%VAR'}"
 
-                    //env.FOLDER_NAME = "${data.folderName}"
                     env.HD_NUMBER = "${data.hd}"
                     env.VAR_1 = "${data.'%%VAR'}"
 
                     areaName = "${data.area}"
                     folderName = "${data.folderName}"
                 }
-
-                // script {
-                //     def parametros = new JsonSlurper().parseText(json)
-                //     def folder = parametros*.folder
-
-                //     println folder
-
-                //     println "foldername is ${folder}"
-
-                //     env.TEST_VARIABLE = "${folder}"
-                // }
                 
                 
                 echo "HD_NUMBER = ${env.HD_NUMBER}"

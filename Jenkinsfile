@@ -73,6 +73,9 @@ pipeline {
     stages {
         stage('chequear las variables traidas del json con el slurper') {
             steps {
+
+                checkout scm
+                
                 script {  
                     def json = readFile(file: "bar.json") 
                     def data = new JsonSlurper().parseText(bar)

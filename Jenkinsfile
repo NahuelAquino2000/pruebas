@@ -41,31 +41,31 @@ def variables = ''
 //     )
 // }
 
-// node () {
-//     writeFile(
-//         file: "filename.json",
-//         text: """\
-//             {
-//                 "SimpleFolder" : {
-//                     "Type" : "SimpleFolder",
+node () {
+    writeFile(
+        file: "bar.json",
+        text: """\
+            {
+                "SimpleFolder" : {
+                    "Type" : "SimpleFolder",
 
-//                     "Job1": {
-//                         "Type" : "Job:Command",
-//                         "Comment" : "Nahuel tests",
-//                         "Command" : "echo 'Job1 de SimpleFolder'",
-//                         "RunAs" : "workbench"  
-//                     },
-//                     "Job2": {
-//                         "Type": "Job:Command",
-//                         "Comment" : "Nahuel tests",
-//                         "Command" : "echo 'Job2 de SimpleFolder'",
-//                         "RunAs": "workbench"
-//                     }        
-//             }
-//             }
-//         """.stripIndent()
-//     )
-// }
+                    "Job1": {
+                        "Type" : "Job:Command",
+                        "Comment" : "Nahuel tests",
+                        "Command" : "echo 'Job1 de SimpleFolder'",
+                        "RunAs" : "workbench"  
+                    },
+                    "Job2": {
+                        "Type": "Job:Command",
+                        "Comment" : "Nahuel tests",
+                        "Command" : "echo 'Job2 de SimpleFolder'",
+                        "RunAs": "workbench"
+                    }        
+            }
+            }
+        """.stripIndent()
+    )
+}
 
 
 pipeline {
@@ -75,7 +75,7 @@ pipeline {
             steps {
 
                 checkout scm
-                
+
                 script {  
                     def json = readFile(file: "bar.json") 
                     def data = new JsonSlurper().parseText(bar)
